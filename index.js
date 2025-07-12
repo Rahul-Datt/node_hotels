@@ -6,6 +6,8 @@ app.use(bodyParser.json());
 const personRoute = require('./routes/personRoutes.js');
 const menuRoute = require('./routes/menuRoutes.js');
 require('dotenv').config();
+const passport = require('./auth.js');
+
 
 const PORT = process.env.PORT || 3000
 
@@ -15,11 +17,17 @@ const logRequest = (req, res, next) => {
 }
 
 app.use(logRequest);
+
+app.use(passport.initialize());
+
+const localAuthMiddleware = passport.authenticate('local', {session: false});
+
+
 app.get('/', (req, res) => {
     res.send('welcome to my hotel')
 });
 
-app.use('/person', personRoute);
+app.use('/person', localAuthMiddleware, personRoute);
 
 app.use('/menuList', menuRoute);
 
