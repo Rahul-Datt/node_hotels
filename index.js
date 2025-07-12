@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 const personRoute = require('./routes/personRoutes.js');
 const menuRoute = require('./routes/menuRoutes.js');
+require('dotenv').config();
+
+const PORT = process.env.PORT || 3000
 
 app.get('/', (req, res) => {
     res.send('welcome to my hotel')
@@ -14,6 +17,6 @@ app.use('/person', personRoute);
 
 app.use('/menuList', menuRoute);
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
     console.log('listening to port no. 3000')
 })
