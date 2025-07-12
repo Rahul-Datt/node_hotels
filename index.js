@@ -9,6 +9,12 @@ require('dotenv').config();
 
 const PORT = process.env.PORT || 3000
 
+const logRequest = (req, res, next) => {
+    console.log(`[${new Date().toLocaleString()}] Request made to : ${req.originalUrl}`);
+    next();
+}
+
+app.use(logRequest);
 app.get('/', (req, res) => {
     res.send('welcome to my hotel')
 });
