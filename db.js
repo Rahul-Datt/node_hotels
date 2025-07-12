@@ -5,7 +5,9 @@ const mongoUrl = process.env.MONGO_URL;
 
 const myUrl = mongoUrl;
 
-mongoose.connect(myUrl);
+mongoose.connect(myUrl, {
+    ssl: true, // force SSL
+});
 
 const db = mongoose.connection;
 
